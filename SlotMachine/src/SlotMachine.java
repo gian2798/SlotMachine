@@ -46,7 +46,7 @@ public class SlotMachine {
 	 */
 	protected void createContents() {
 		shlSlotMachine = new Shell();
-		shlSlotMachine.setSize(450, 480);
+		shlSlotMachine.setSize(450, 400);
 		//shlSlotMachine.setBackgroundImage(SWTResourceManager.getImage(""));
 		shlSlotMachine.setText("Slot Machine");
 		
@@ -76,33 +76,33 @@ public class SlotMachine {
 		lblWinnerPaid.setText("Winner Paid");
 		
 		Button btnReset = new Button(shlSlotMachine, SWT.NONE);
-		btnReset.setBounds(10, 366, 55, 25);
+		btnReset.setBounds(20, 326, 55, 25);
 		btnReset.setText("RESET");
 		
 		Button btnPlayTable = new Button(shlSlotMachine, SWT.NONE);
-		btnPlayTable.setBounds(71, 366, 75, 25);
+		btnPlayTable.setBounds(81, 326, 75, 25);
 		btnPlayTable.setText("PLAY TABLE");
 		
 		Button btnBetOne = new Button(shlSlotMachine, SWT.NONE);
-		btnBetOne.setBounds(152, 366, 55, 25);
+		btnBetOne.setBounds(162, 326, 55, 25);
 		btnBetOne.setText("BET ONE");
 		
 		Button btnBetMax = new Button(shlSlotMachine, SWT.NONE);
-		btnBetMax.setBounds(213, 366, 64, 25);
+		btnBetMax.setBounds(223, 326, 64, 25);
 		btnBetMax.setText("BET MAX");
 		
 		Button btnSpin = new Button(shlSlotMachine, SWT.NONE);
-		btnSpin.setBounds(323, 366, 75, 43);
+		btnSpin.setBounds(325, 288, 75, 43);
 		btnSpin.setText("SPIN");
 		
 		Canvas canvas = new Canvas(shlSlotMachine, SWT.NONE);
-		canvas.setBounds(20, 51, 64, 181);
+		canvas.setBounds(20, 51, 100, 100);
 		
 		Canvas canvas_1 = new Canvas(shlSlotMachine, SWT.NONE);
-		canvas_1.setBounds(117, 49, 64, 183);
+		canvas_1.setBounds(161, 51, 100, 100);
 		
 		Canvas canvas_2 = new Canvas(shlSlotMachine, SWT.NONE);
-		canvas_2.setBounds(200, 49, 65, 183);
+		canvas_2.setBounds(300, 51, 100, 100);
 		
 		/*public void loadImages() {
         images.add(createImageIcon("images/Banana.png", "Banana"));
