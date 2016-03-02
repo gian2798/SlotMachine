@@ -5,6 +5,11 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Canvas;
+import org.eclipse.wb.swt.SWTResourceManager;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.GC;
+import org.eclipse.swt.graphics.Image;
 
 public class SlotMachine {
 
@@ -51,16 +56,18 @@ public class SlotMachine {
 		shlSlotMachine.setText("Slot Machine");
 		
 		txt_credits = new Text(shlSlotMachine, SWT.BORDER);
-		txt_credits.setBounds(10, 261, 76, 21);
+		txt_credits.setBounds(10, 233, 76, 21);
 		
 		txt_bet = new Text(shlSlotMachine, SWT.BORDER);
-		txt_bet.setBounds(105, 261, 76, 21);
+		txt_bet.setBounds(104, 233, 76, 21);
 		
 		txt_paid = new Text(shlSlotMachine, SWT.BORDER);
-		txt_paid.setBounds(200, 261, 76, 21);
+		txt_paid.setBounds(200, 233, 76, 21);
 		
 		Label lblSuperSlot = new Label(shlSlotMachine, SWT.NONE);
-		lblSuperSlot.setBounds(174, 10, 65, 15);
+		lblSuperSlot.setAlignment(SWT.CENTER);
+		lblSuperSlot.setFont(SWTResourceManager.getFont("Segoe Marker", 12, SWT.BOLD));
+		lblSuperSlot.setBounds(162, 10, 99, 21);
 		lblSuperSlot.setText("Super Slots");
 		
 		Label lblCredits = new Label(shlSlotMachine, SWT.NONE);
@@ -91,18 +98,45 @@ public class SlotMachine {
 		btnBetMax.setBounds(223, 326, 64, 25);
 		btnBetMax.setText("BET MAX");
 		
+		Canvas canvas = new Canvas(shlSlotMachine, SWT.NONE);
+		canvas.setBackground(SWTResourceManager.getColor(SWT.COLOR_LIST_SELECTION_TEXT));
+		canvas.setBounds(61, 51, 300, 100);
+		
+		Image banana = new Image(null, "banana.jpg");
+		Image anguria = new Image(null, "anguria.jpg");
+		Image biscaro = new Image(null, "biscaro.jpg");
+		Image collina = new Image(null, "collina.jpg");
+		Image donald = new Image(null, "donaldtrum.jpg");
+		Image frusca = new Image(null, "fruscalzo.jpeg");
+		Image quadri = new Image(null, "quadrifoglio.jpg");
+		Image regi = new Image(null, "reginato.jpg");
+		Image zlata = new Image(null, "zlatan.jpg");
+		
 		Button btnSpin = new Button(shlSlotMachine, SWT.NONE);
-		btnSpin.setBounds(325, 288, 75, 43);
+		btnSpin.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				GC mycanvas = new GC(canvas);
+				
+				
+				
+				
+				
+				for(int i=0;i<100;i++){
+					mycanvas.drawImage(banana, 0,i);
+					try {
+					    Thread.sleep(50);              
+					} catch(InterruptedException ex) {
+					    Thread.currentThread().interrupt();
+					}
+				}
+					
+			}
+		});
+		btnSpin.setBounds(325, 274, 75, 43);
 		btnSpin.setText("SPIN");
 		
-		Canvas canvas = new Canvas(shlSlotMachine, SWT.NONE);
-		canvas.setBounds(20, 51, 100, 100);
 		
-		Canvas canvas_1 = new Canvas(shlSlotMachine, SWT.NONE);
-		canvas_1.setBounds(161, 51, 100, 100);
-		
-		Canvas canvas_2 = new Canvas(shlSlotMachine, SWT.NONE);
-		canvas_2.setBounds(300, 51, 100, 100);
 		
 		/*public void loadImages() {
         images.add(createImageIcon("images/Banana.png", "Banana"));
