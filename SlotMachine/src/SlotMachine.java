@@ -2,7 +2,11 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
+import java.awt.Component;
 import java.util.ArrayList;
+import java.util.Arrays;
+
+import javax.swing.JOptionPane;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Label;
@@ -13,9 +17,34 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
-
+	
 public class SlotMachine {
-
+	
+	
+	private Image immagine[] = new Image[9];
+	
+	public class Gira extends Thread{
+		public void run() {
+			Display.getDefault().asyncExec(new Runnable() {
+				/*public void run() {
+					n = (int) (Math.random() * 9);
+					lblNewLabel.setImage(SWTResourceManager.getImage(main.class, img.get(n)));
+					n = (int) (Math.random() * 9);
+					lblNewLabel_1.setImage(SWTResourceManager.getImage(main.class, img.get(n)));
+					n = (int) (Math.random() * 9);
+					lblNewLabel_2.setImage(SWTResourceManager.getImage(main.class, img.get(n)));
+				}
+			});
+			try {
+				Thread.sleep(80);
+			} catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				Thread.currentThread().interrupt();
+			}
+			System.out.println(i);*/
+		  }
+	}
+	
 	protected Shell shlSlotMachine;
 	private Text txt_credits;
 	private Text txt_bet;
@@ -54,18 +83,27 @@ public class SlotMachine {
 	 * Create contents of the window.
 	 */
 	protected void createContents() {
+		
+		
+		
 		shlSlotMachine = new Shell();
 		shlSlotMachine.setSize(450, 400);
 		//shlSlotMachine.setBackgroundImage(SWTResourceManager.getImage(""));
 		shlSlotMachine.setText("Slot Machine");
 		
 		txt_credits = new Text(shlSlotMachine, SWT.BORDER);
+		txt_credits.setBackground(SWTResourceManager.getColor(SWT.COLOR_LIST_BACKGROUND));
+		txt_credits.setEditable(false);
 		txt_credits.setBounds(10, 233, 76, 21);
 		
 		txt_bet = new Text(shlSlotMachine, SWT.BORDER);
+		txt_bet.setBackground(SWTResourceManager.getColor(SWT.COLOR_LIST_BACKGROUND));
+		txt_bet.setEditable(false);
 		txt_bet.setBounds(104, 233, 76, 21);
 		
 		txt_paid = new Text(shlSlotMachine, SWT.BORDER);
+		txt_paid.setBackground(SWTResourceManager.getColor(SWT.COLOR_LIST_BACKGROUND));
+		txt_paid.setEditable(false);
 		txt_paid.setBounds(200, 233, 76, 21);
 		
 		Label lblSuperSlot = new Label(shlSlotMachine, SWT.NONE);
@@ -87,6 +125,13 @@ public class SlotMachine {
 		lblWinnerPaid.setText("Winner Paid");
 		
 		Button btnReset = new Button(shlSlotMachine, SWT.NONE);
+		btnReset.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				soldi=0.00;
+				txt_credits.setText(String.valueOf(soldi));
+			}
+		});
 		btnReset.setBounds(20, 326, 55, 25);
 		btnReset.setText("RESET");
 		
@@ -98,8 +143,13 @@ public class SlotMachine {
 		btnBetOne.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				soldi=soldi+0.50;
-				txt_credits.setText(String.valueOf(soldi));
+				if(soldi<50){
+					soldi=soldi+0.50;
+					txt_credits.setText(String.valueOf(soldi));
+				}else{
+					Component frame = null;
+					JOptionPane.showMessageDialog(frame, "Non puoi superare i 50!");
+				}
 				}
 			});
 			btnBetOne.setBounds(162, 326, 55, 25);
@@ -109,8 +159,13 @@ public class SlotMachine {
 			btnBetMax.addSelectionListener(new SelectionAdapter() {
 				@Override
 				public void widgetSelected(SelectionEvent e) {
-					soldi=soldi+2.00;
-					txt_credits.setText(String.valueOf(soldi));
+					if(soldi<50){
+						soldi=soldi+2.00;
+						txt_credits.setText(String.valueOf(soldi));
+				}else{
+					Component frame = null;
+					JOptionPane.showMessageDialog(frame, "Non puoi superare i 50!");
+				}
 				}
 			});
 			btnBetMax.setBounds(223, 326, 64, 25);
@@ -121,7 +176,7 @@ public class SlotMachine {
 		canvas.setBounds(61, 51, 300, 100);
 		
 		
-		ArrayList immagini = new ArrayList();
+		
 		
 		Image banana = new Image(null, "banana.jpg");
 		Image anguria = new Image(null, "anguria.jpg");
@@ -133,36 +188,29 @@ public class SlotMachine {
 		Image regi = new Image(null, "reginato.jpg");
 		Image zlata = new Image(null, "zlatan.jpg");
 		
-		immagini.add(banana);
-		immagini.add(anguria);
-		immagini.add(biscaro);
-		immagini.add(collina);
-		immagini.add(donald);
-		immagini.add(frusca);
-		immagini.add(quadri);
-		immagini.add(regi);
-		immagini.add(zlata);
+		immagine[0]=banana;
+		immagine[1]=anguria;
+		immagine[2]=biscaro;
+		immagine[3]=collina;
+		immagine[4]=donald;
+		immagine[5]=frusca;
+		immagine[6]=quadri;
+		immagine[7]=regi;
+		immagine[8]=zlata;
 		
 		Button btnSpin = new Button(shlSlotMachine, SWT.NONE);
 		btnSpin.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				GC mycanvas = new GC(canvas);
-				
-				/*class scorri extends Thread{
-					public void run() {
-					 for (int i = 0; i < 10; i++) {
-					 System.out.println(i + " " +
-					 getName());
-					 try {
-					 sleep((int)(Math.random()*
-					 1000));
-					 } catch (InterruptedException e){}
-					 }
-					 System.out.println("DONE! " +
-					 getName());
-					 }
-				}*/
+				if(soldi>0){
+					soldi-=0.5;
+					txt_credits.setText(String.valueOf(soldi));
+				}else{
+					Component frame = null;
+					JOptionPane.showMessageDialog(frame,"Errore, inserisci dei soldi prima","Error",JOptionPane.WARNING_MESSAGE);
+				}
+				//Gira();
 					
 			}
 		});
