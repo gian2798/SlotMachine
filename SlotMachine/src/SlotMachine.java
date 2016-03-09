@@ -53,7 +53,6 @@ public class SlotMachine {
 	
 	protected Shell shlSlotMachine;
 	private Text txt_credits;
-	private Text txt_bet;
 	private Text txt_paid;
 	private double soldi;
 
@@ -84,7 +83,55 @@ public class SlotMachine {
 			}
 		}
 	}
-
+	
+	public void Vincita(Image immagine[],int b,int n,int m){
+		if(immagine[n] == immagine[0] && immagine[m] == immagine[1] && immagine[b] == immagine[1]){
+			soldi=soldi*1.5;
+			txt_paid.setText(String.valueOf(soldi));
+			txt_credits.setText(String.valueOf(soldi));
+		}
+		if(immagine[n] == immagine[1] && immagine[m] == immagine[1] && immagine[b] == immagine[1]){
+			soldi=soldi*2;
+			txt_paid.setText(String.valueOf(soldi));
+			txt_credits.setText(String.valueOf(soldi));
+		}
+		if(immagine[n] == immagine[2] && immagine[m] == immagine[2] && immagine[b] == immagine[2]){
+			soldi=soldi*10;
+			txt_paid.setText(String.valueOf(soldi));
+			txt_credits.setText(String.valueOf(soldi));
+		}
+		if(immagine[n] == immagine[3] && immagine[m] == immagine[3] && immagine[b] == immagine[3]){
+			soldi=soldi*4;
+			txt_paid.setText(String.valueOf(soldi));
+			txt_credits.setText(String.valueOf(soldi));
+		}
+		if(immagine[n] == immagine[4] && immagine[m] == immagine[4] && immagine[b] == immagine[4]){
+			soldi=soldi*15;
+			txt_paid.setText(String.valueOf(soldi));
+			txt_credits.setText(String.valueOf(soldi));
+		}
+		if(immagine[n] == immagine[5] && immagine[m] == immagine[5] && immagine[b] == immagine[5]){
+			soldi=soldi*12;
+			txt_paid.setText(String.valueOf(soldi));
+			txt_credits.setText(String.valueOf(soldi));
+		}
+		if(immagine[n] == immagine[6] && immagine[m] == immagine[6] && immagine[b] == immagine[6]){
+			soldi=soldi*5;
+			txt_paid.setText(String.valueOf(soldi));
+			txt_credits.setText(String.valueOf(soldi));
+		}
+		if(immagine[n] == immagine[7] && immagine[m] == immagine[7] && immagine[b] == immagine[7]){
+			soldi=0;
+			txt_paid.setText(String.valueOf(soldi));
+			txt_credits.setText(String.valueOf(soldi));
+		}
+		if(immagine[n] == immagine[8] && immagine[m] == immagine[8] && immagine[b] == immagine[8]){
+			soldi=soldi*20;
+			txt_paid.setText(String.valueOf(soldi));
+			txt_credits.setText(String.valueOf(soldi));
+		}
+		
+	}
 	/**
 	 * Create contents of the window.
 	 */
@@ -101,17 +148,12 @@ public class SlotMachine {
 		txt_credits.setFont(SWTResourceManager.getFont("Segoe Print", 10, SWT.NORMAL));
 		txt_credits.setBackground(SWTResourceManager.getColor(SWT.COLOR_LIST_BACKGROUND));
 		txt_credits.setEditable(false);
-		txt_credits.setBounds(10, 233, 76, 21);
-		
-		txt_bet = new Text(shlSlotMachine, SWT.BORDER | SWT.CENTER);
-		txt_bet.setBackground(SWTResourceManager.getColor(SWT.COLOR_LIST_BACKGROUND));
-		txt_bet.setEditable(false);
-		txt_bet.setBounds(104, 233, 76, 21);
+		txt_credits.setBounds(34, 228, 76, 21);
 		
 		txt_paid = new Text(shlSlotMachine, SWT.BORDER | SWT.CENTER);
 		txt_paid.setBackground(SWTResourceManager.getColor(SWT.COLOR_LIST_BACKGROUND));
 		txt_paid.setEditable(false);
-		txt_paid.setBounds(200, 233, 76, 21);
+		txt_paid.setBounds(162, 228, 76, 21);
 		
 		Label lblSuperSlot = new Label(shlSlotMachine, SWT.NONE);
 		lblSuperSlot.setAlignment(SWT.CENTER);
@@ -212,22 +254,22 @@ public class SlotMachine {
 															
 								Display.getDefault().asyncExec(new Runnable() {
 									public void run() {
-										int n;
+										int n,m,b;
 										int giri=0;
 										for(int i=0;i<100 && giri<3;i++,giri++){
 											n = (int) (Math.random() * 9);
 											mycanvas.drawImage(immagine[n], 0, i );
 											
-											n = (int) (Math.random() * 9);
-											n = (int) (Math.random() * 9);
-											mycanvas.drawImage(immagine[n], 100, i );
+											m = (int) (Math.random() * 9);
+											m = (int) (Math.random() * 9);
+											mycanvas.drawImage(immagine[m], 100, i );
 											
-											n = (int) (Math.random() * 9);
-											mycanvas.drawImage(immagine[n], 200, i );
+											b = (int) (Math.random() * 9);
+											mycanvas.drawImage(immagine[b], 200, i );
+											
+											//Vincita();
 										}
-										//n = (int) (Math.random() * 9);
 										
-										//n = (int) (Math.random() * 9);
 										
 									}
 								});
@@ -260,7 +302,6 @@ public class SlotMachine {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				GC mycanvas = new GC(canvas);
-			
 				soldi=0.00;
 				txt_credits.setText(String.valueOf(soldi));
 			}
@@ -268,19 +309,6 @@ public class SlotMachine {
 		btnReset.setBounds(20, 326, 55, 25);
 		btnReset.setText("RESET");
 		
-		
-		/*public void loadImages() {
-        images.add(createImageIcon("images/Banana.png", "Banana"));
-        images.add(createImageIcon("images/Bar.png", "Bar"));
-        images.add(createImageIcon("images/Bell.png", "Bell"));
-        images.add(createImageIcon("images/Cherry.png", "Cherry"));
-        images.add(createImageIcon("images/Clover.png", "Clover"));
-        images.add(createImageIcon("images/Diamond.png", "Diamond"));
-        images.add(createImageIcon("images/Plum.png", "Plum"));
-        images.add(createImageIcon("images/Seven.png", "Seven"));
-        images.add(createImageIcon("images/Watermelon.png", "Watermelon"));
-    }
-*/
 		
 
 	}
