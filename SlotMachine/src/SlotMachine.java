@@ -85,7 +85,7 @@ public class SlotMachine {
 	}
 	
 	public void Vincita(Image immagine[],int b,int n,int m){
-		if(immagine[n] == immagine[0] && immagine[m] == immagine[1] && immagine[b] == immagine[1]){
+		if(immagine[n] == immagine[0] && immagine[m] == immagine[0] && immagine[b] == immagine[0]){
 			soldi=soldi*1.5;
 			txt_paid.setText(String.valueOf(soldi));
 			txt_credits.setText(String.valueOf(soldi));
@@ -239,60 +239,61 @@ public class SlotMachine {
 		btnSpin.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				
+				int c=0;
 				GC mycanvas = new GC(canvas);
 				if(soldi>0){
 					soldi-=0.5;
 					txt_credits.setText(String.valueOf(soldi));
-					
-					Thread thread = new Thread() {
-						@Override
-						public void run() {
-							// lblSpin.setBackground(SWTResourceManager.getColor(SWT.COLOR_YELLOW));
-
-							for (int i = 0; i < 7; i++) {
-															
-								Display.getDefault().asyncExec(new Runnable() {
-									public void run() {
-										int n,m,b;
-										int giri=0;
-										for(int i=0;i<100 && giri<3;i++,giri++){
-											n = (int) (Math.random() * 9);
-											mycanvas.drawImage(immagine[n], 0, i );
+					btnSpin.setEnabled(false);
+						Thread thread = new Thread() {
+							@Override
+							public void run() {
+								// lblSpin.setBackground(SWTResourceManager.getColor(SWT.COLOR_YELLOW));
+	
+								for (int i = 0; i < 7; i++) {
+																
+									Display.getDefault().asyncExec(new Runnable() {
+										public void run() {
+											int n,m,b;
+											int giri=0;
+											for(int i=0;i<100 && giri<3;i++,giri++){
+												n = (int) (Math.random() * 9);
+												mycanvas.drawImage(immagine[n], 0, i );
+												
+												m = (int) (Math.random() * 9);
+												
+												mycanvas.drawImage(immagine[m], 100, i );
+												
+												b = (int) (Math.random() * 9);
+												mycanvas.drawImage(immagine[b], 200, i );
+												
+												Vincita(immagine,b,n,m);
+												
+											}
 											
-											m = (int) (Math.random() * 9);
-											m = (int) (Math.random() * 9);
-											mycanvas.drawImage(immagine[m], 100, i );
 											
-											b = (int) (Math.random() * 9);
-											mycanvas.drawImage(immagine[b], 200, i );
-											
-											//Vincita();
 										}
-										
-										
+									});
+									try {
+										Thread.sleep(250);
+									} catch (InterruptedException e1) {
+										// TODO Auto-generated catch block
+										e1.printStackTrace();
 									}
-								});
-								try {
-									Thread.sleep(250);
-								} catch (InterruptedException e1) {
-									// TODO Auto-generated catch block
-									e1.printStackTrace();
 								}
+	
 							}
-
-						}
-
-					};
-					thread.start();
-					
+	
+						};
+						thread.start();
+						//btnSpin.setEnabled(true);
 				}else{
 					Component frame = null;
 					JOptionPane.showMessageDialog(frame,"Errore, inserisci dei soldi prima","Error",JOptionPane.WARNING_MESSAGE);
 				}
-			
-					
+						
 			}
+			
 		});
 		btnSpin.setBounds(325, 274, 75, 43);
 		btnSpin.setText("SPIN");
