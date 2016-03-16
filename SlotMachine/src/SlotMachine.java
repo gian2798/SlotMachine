@@ -55,7 +55,8 @@ public class SlotMachine {
 	private Text txt_credits;
 	private Text txt_paid;
 	private double soldi;
-
+	private int n=1,m=2,b=3;
+	
 	/**
 	 * Launch the application.
 	 * @param args
@@ -85,50 +86,56 @@ public class SlotMachine {
 	}
 	
 	public void Vincita(Image immagine[],int b,int n,int m){
+		double soldi1 = 0; 
+		soldi1 = soldi1+soldi;
+		if(soldi == 0){
+			soldi1=1;
+		}
 		if(immagine[n] == immagine[0] && immagine[m] == immagine[0] && immagine[b] == immagine[0]){
-			soldi=soldi*1.5;
-			txt_paid.setText(String.valueOf(soldi));
-			txt_credits.setText(String.valueOf(soldi));
+			soldi1=soldi1+soldi1*1.5;
+			txt_paid.setText(String.valueOf(soldi1));
+	
 		}
 		if(immagine[n] == immagine[1] && immagine[m] == immagine[1] && immagine[b] == immagine[1]){
-			soldi=soldi*2;
-			txt_paid.setText(String.valueOf(soldi));
-			txt_credits.setText(String.valueOf(soldi));
+			soldi1=soldi1+soldi1*2;
+			txt_paid.setText(String.valueOf(soldi1));
+			
 		}
 		if(immagine[n] == immagine[2] && immagine[m] == immagine[2] && immagine[b] == immagine[2]){
-			soldi=soldi*10;
+			soldi1=soldi1+soldi1*10;
 			txt_paid.setText(String.valueOf(soldi));
-			txt_credits.setText(String.valueOf(soldi));
+			
 		}
 		if(immagine[n] == immagine[3] && immagine[m] == immagine[3] && immagine[b] == immagine[3]){
-			soldi=soldi*4;
-			txt_paid.setText(String.valueOf(soldi));
-			txt_credits.setText(String.valueOf(soldi));
+			soldi1=soldi1+soldi1*4;
+			txt_paid.setText(String.valueOf(soldi1));
+			
 		}
 		if(immagine[n] == immagine[4] && immagine[m] == immagine[4] && immagine[b] == immagine[4]){
-			soldi=soldi*15;
-			txt_paid.setText(String.valueOf(soldi));
-			txt_credits.setText(String.valueOf(soldi));
+			soldi1=soldi1+soldi1*15;
+			txt_paid.setText(String.valueOf(soldi1));
+			
 		}
 		if(immagine[n] == immagine[5] && immagine[m] == immagine[5] && immagine[b] == immagine[5]){
-			soldi=soldi*12;
-			txt_paid.setText(String.valueOf(soldi));
-			txt_credits.setText(String.valueOf(soldi));
+			soldi1=soldi1+soldi1*12;
+			txt_paid.setText(String.valueOf(soldi1));
+			
 		}
 		if(immagine[n] == immagine[6] && immagine[m] == immagine[6] && immagine[b] == immagine[6]){
-			soldi=soldi*5;
-			txt_paid.setText(String.valueOf(soldi));
-			txt_credits.setText(String.valueOf(soldi));
+			soldi1=soldi1+soldi1*5;
+			txt_paid.setText(String.valueOf(soldi1));
+			
 		}
 		if(immagine[n] == immagine[7] && immagine[m] == immagine[7] && immagine[b] == immagine[7]){
+			soldi1=0;
 			soldi=0;
-			txt_paid.setText(String.valueOf(soldi));
+			txt_paid.setText(String.valueOf(soldi1));
 			txt_credits.setText(String.valueOf(soldi));
 		}
 		if(immagine[n] == immagine[8] && immagine[m] == immagine[8] && immagine[b] == immagine[8]){
-			soldi=soldi*20;
-			txt_paid.setText(String.valueOf(soldi));
-			txt_credits.setText(String.valueOf(soldi));
+			soldi1=soldi1+soldi1*20;
+			txt_paid.setText(String.valueOf(soldi1));
+			
 		}
 		
 	}
@@ -248,13 +255,12 @@ public class SlotMachine {
 						Thread thread = new Thread() {
 							@Override
 							public void run() {
-								// lblSpin.setBackground(SWTResourceManager.getColor(SWT.COLOR_YELLOW));
 	
 								for (int i = 0; i < 7; i++) {
 																
 									Display.getDefault().asyncExec(new Runnable() {
 										public void run() {
-											int n,m,b;
+											
 											int giri=0;
 											for(int i=0;i<100 && giri<3;i++,giri++){
 												n = (int) (Math.random() * 9);
@@ -267,7 +273,6 @@ public class SlotMachine {
 												b = (int) (Math.random() * 9);
 												mycanvas.drawImage(immagine[b], 200, i );
 												
-												Vincita(immagine,b,n,m);
 												
 											}
 											
@@ -275,7 +280,7 @@ public class SlotMachine {
 										}
 									});
 									try {
-										Thread.sleep(250);
+										Thread.sleep(300);
 									} catch (InterruptedException e1) {
 										// TODO Auto-generated catch block
 										e1.printStackTrace();
@@ -286,12 +291,13 @@ public class SlotMachine {
 	
 						};
 						thread.start();
-						//btnSpin.setEnabled(true);
+						btnSpin.setEnabled(true);
+						
 				}else{
 					Component frame = null;
 					JOptionPane.showMessageDialog(frame,"Errore, inserisci dei soldi prima","Error",JOptionPane.WARNING_MESSAGE);
 				}
-						
+				Vincita(immagine,b,n,m);			
 			}
 			
 		});
