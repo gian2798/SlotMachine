@@ -56,6 +56,7 @@ public class SlotMachine {
 	private Text txt_paid;
 	private double soldi;
 	private int n=1,m=2,b=3;
+	private int c=0;
 	
 	/**
 	 * Launch the application.
@@ -242,11 +243,30 @@ public class SlotMachine {
 		immagine[7]=regi;
 		immagine[8]=zlata;
 		
+		Button btnReset = new Button(shlSlotMachine, SWT.NONE);
+		btnReset.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				GC mycanvas = new GC(canvas);
+				soldi=0.00;
+				txt_credits.setText(String.valueOf(soldi));
+			}
+		});
+		btnReset.setBounds(20, 326, 55, 25);
+		btnReset.setText("RESET");
+		
+		
 		Button btnSpin = new Button(shlSlotMachine, SWT.NONE);
 		btnSpin.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				int c=0;
+				c=0;
+				if(soldi>0){
+					btnSpin.setEnabled(false);
+					btnReset.setEnabled(false);
+					btnBetMax.setEnabled(false);
+					btnBetOne.setEnabled(false);
+				}
 				GC mycanvas = new GC(canvas);
 				if(soldi>0){
 					soldi-=0.5;
@@ -267,7 +287,7 @@ public class SlotMachine {
 												mycanvas.drawImage(immagine[n], 0, i );
 												
 												m = (int) (Math.random() * 9);
-												
+												m = (int) (Math.random() * 9);
 												mycanvas.drawImage(immagine[m], 100, i );
 												
 												b = (int) (Math.random() * 9);
@@ -280,41 +300,50 @@ public class SlotMachine {
 										}
 									});
 									try {
-										Thread.sleep(300);
+										Thread.sleep(200);
 									} catch (InterruptedException e1) {
 										// TODO Auto-generated catch block
 										e1.printStackTrace();
 									}
 								}
+
+								Display.getDefault().asyncExec(new Runnable() {
+									public void run() {
+										
+										c = 1;
+										if(c==1){
+											btnSpin.setEnabled(true);
+											btnReset.setEnabled(true);
+											btnBetMax.setEnabled(true);
+											btnBetOne.setEnabled(true);
+										}
+											
+											
+										
+										
+										
+									}
+								});
+								
 	
 							}
 	
 						};
 						thread.start();
-						btnSpin.setEnabled(true);
 						
 				}else{
 					Component frame = null;
 					JOptionPane.showMessageDialog(frame,"Errore, inserisci dei soldi prima","Error",JOptionPane.WARNING_MESSAGE);
 				}
-				Vincita(immagine,b,n,m);			
+				Vincita(immagine,b,n,m);
+				
 			}
 			
 		});
 		btnSpin.setBounds(325, 274, 75, 43);
 		btnSpin.setText("SPIN");
 		
-		Button btnReset = new Button(shlSlotMachine, SWT.NONE);
-		btnReset.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				GC mycanvas = new GC(canvas);
-				soldi=0.00;
-				txt_credits.setText(String.valueOf(soldi));
-			}
-		});
-		btnReset.setBounds(20, 326, 55, 25);
-		btnReset.setText("RESET");
+		
 		
 		
 
