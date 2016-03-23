@@ -149,6 +149,7 @@ public class SlotMachine {
 		
 		shlSlotMachine = new Shell();
 		shlSlotMachine.setSize(450, 400);
+		
 		shlSlotMachine.setBackgroundImage(SWTResourceManager.getImage("sfondo.jpg"));
 		shlSlotMachine.setText("Slot Machine");
 		
