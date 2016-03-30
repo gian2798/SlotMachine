@@ -336,9 +336,6 @@ public class SlotMachine {
 											btnBetOne.setEnabled(true);
 										}
 											
-											
-										
-										
 										
 									}
 								});
