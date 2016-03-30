@@ -3,9 +3,13 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 import java.awt.Component;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.JOptionPane;
 
 import org.eclipse.swt.SWT;
@@ -143,6 +147,17 @@ public class SlotMachine {
 	/**
 	 * Create contents of the window.
 	 */
+	public void playSoundCoin() {
+	    try {
+	        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("MarioCoin.mp3").getAbsoluteFile());
+	        Clip clip = AudioSystem.getClip();
+	        clip.open(audioInputStream);
+	        clip.start();
+	    } catch(Exception ex) {
+	        System.out.println("Error with playing sound.");
+	        ex.printStackTrace();
+	    }
+	}
 	protected void createContents() {
 		
 		
@@ -189,6 +204,7 @@ public class SlotMachine {
 		btnBetOne.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
+				playSoundCoin();
 				if(soldi<50){
 					soldi=soldi+0.50;
 					txt_credits.setText(String.valueOf(soldi));
@@ -205,6 +221,7 @@ public class SlotMachine {
 			btnBetMax.addSelectionListener(new SelectionAdapter() {
 				@Override
 				public void widgetSelected(SelectionEvent e) {
+					playSoundCoin();
 					if(soldi<50){
 						soldi=soldi+2.00;
 						txt_credits.setText(String.valueOf(soldi));
