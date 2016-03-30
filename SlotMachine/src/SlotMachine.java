@@ -21,7 +21,8 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
-	
+import java.lang.Exception;
+import java.lang.Throwable;
 public class SlotMachine {
 	
 	
@@ -149,7 +150,7 @@ public class SlotMachine {
 	 */
 	public void playSoundCoin() {
 	    try {
-	        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("MarioCoin.mp3").getAbsoluteFile());
+	        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("Mario Coin.WAV").getAbsoluteFile());
 	        Clip clip = AudioSystem.getClip();
 	        clip.open(audioInputStream);
 	        clip.start();
