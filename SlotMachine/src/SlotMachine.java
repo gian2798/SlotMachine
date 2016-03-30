@@ -159,6 +159,17 @@ public class SlotMachine {
 	        ex.printStackTrace();
 	    }
 	}
+	public void play() {
+	    try {
+	        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("AK-47.WAV").getAbsoluteFile());
+	        Clip clip = AudioSystem.getClip();
+	        clip.open(audioInputStream);
+	        clip.start();
+	    } catch(Exception ex) {
+	        System.out.println("Error with playing sound.");
+	        ex.printStackTrace();
+	    }
+	}
 	protected void createContents() {
 		
 		
@@ -288,6 +299,7 @@ public class SlotMachine {
 				}
 				GC mycanvas = new GC(canvas);
 				if(soldi>0){
+					play();
 					soldi-=0.5;
 					txt_credits.setText(String.valueOf(soldi));
 					btnSpin.setEnabled(false);
@@ -319,7 +331,7 @@ public class SlotMachine {
 										}
 									});
 									try {
-										Thread.sleep(200);
+										Thread.sleep(300);
 									} catch (InterruptedException e1) {
 										// TODO Auto-generated catch block
 										e1.printStackTrace();
